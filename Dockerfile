@@ -58,6 +58,7 @@ USER 31337
 COPY --from=builder /tmp/work/src/graphdb/target/pontus-gdpr-graph-*.jar  /opt/graphdb/lib/graphdb-${VERSION}.jar
 
 COPY bin /opt/graphdb/bin
+COPY lib /opt/graphdb/lib
 
 WORKDIR /opt/graphdb
 CMD ["/opt/graphdb/bin/run-graph.sh"]
