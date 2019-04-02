@@ -52,6 +52,7 @@ RUN apk upgrade -q --no-cache \
 &&  mkdir -p /opt/graphdb/bin \
 &&  adduser -S graphdb -u 31337 -h /opt/graphdb/ \
 &&  chown -R graphdb /opt/graphdb/
+
 USER 31337
 
 COPY --from=builder /tmp/work/src/graphdb/target/pontus-gdpr-graph-*.jar  /opt/graphdb/lib/graphdb-${VERSION}.jar
