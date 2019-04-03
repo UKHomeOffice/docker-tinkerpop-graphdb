@@ -1,13 +1,5 @@
 FROM maven:3.6-jdk-8-alpine as builder
 
-ARG REPO_GRAPH_WRAPPER=https://github.com/pontusvision/pontus-gdpr-graph
-ARG REPO_JANUSGRAPH=https://github.com/pontusvision/pontus-janusgraph
-ARG REPO_DRIVER_DYNAMODB=https://github.com/pontusvision/pontus-dynamodb-janusgraph-storage-backend
-ARG REPO_REDACTION=https://github.com/UKHomeOffice/pontus-redaction
-ARG DYNAMODB_VERSION=v0.0.20
-ARG JANUSGRAPH_VERSION=v0.0.20
-ARG GRAPH_WRAPPER_VERSION=v0.0.20
-ARG REDACTION_VERSION=v0.0.20
 
 RUN apk upgrade -q --no-cache
 RUN apk add -q --no-cache \
@@ -17,20 +9,28 @@ RUN apk add -q --no-cache \
       unzip \
       zip 
 
+
+ARG REPO_JANUSGRAPH=https://github.com/pontusvision/pontus-janusgraph
+ARG JANUSGRAPH_VERSION=v0.0.20
 RUN mkdir -p /tmp/work/src && \
     git clone --single-branch -b $JANUSGRAPH_VERSION    $REPO_JANUSGRAPH      /tmp/work/src/janusgraph
-
 WORKDIR /tmp/work/src/janusgraph
 RUN mvn -DskipTests install  
 
+ARG REPO_DRIVER_DYNAMODB=https://github.com/pontusvision/pontus-dynamodb-janusgraph-storage-backend
+ARG DYNAMODB_VERSION=v0.0.20
 RUN git clone --single-branch -b $DYNAMODB_VERSION      $REPO_DRIVER_DYNAMODB /tmp/work/src/dynamodb-janusgraph-storage-backend
 WORKDIR /tmp/work/src/dynamodb-janusgraph-storage-backend
 RUN mvn -DskipTests install 
 
-RUN git clone --single-branch -b $REDACTION_VERSION $REPO_REDACTION   /tmp/work/src/redaction
-WORKDIR /tmp/work/src/redaction
-RUN mvn -DskipTests install 
+#ARG REPO_REDACTION=https://github.com/UKHomeOffice/pontus-redaction
+#ARG REDACTION_VERSION=v0.0.20
+#RUN git clone --single-branch -b $REDACTION_VERSION $REPO_REDACTION   /tmp/work/src/redaction
+#WORKDIR /tmp/work/src/redaction
+#RUN mvn -DskipTests install 
 
+ARG REPO_GRAPH_WRAPPER=https://github.com/pontusvision/pontus-gdpr-graph
+ARG GRAPH_WRAPPER_VERSION=v0.1.0
 RUN git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
 WORKDIR /tmp/work/src/graphdb
 RUN mvn -DskipTests install -U package 
