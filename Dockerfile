@@ -48,6 +48,7 @@ EXPOSE 8182
 RUN apk upgrade -q --no-cache \
 &&  apk add -q --no-cache \
       bash  \
+      curl  \
 &&  mkdir -p /opt/graphdb/lib \
 &&  mkdir -p /opt/graphdb/bin \
 &&  adduser -S graphdb -u 31337 -h /opt/graphdb/ \
