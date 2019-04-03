@@ -35,7 +35,6 @@ RUN git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /t
 WORKDIR /tmp/work/src/graphdb
 RUN mvn -DskipTests install -U package 
 
-
 FROM openjdk:8-jre-alpine
 
 ENV LISTEN_HOST="0.0.0.0" \
