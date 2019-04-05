@@ -21,7 +21,7 @@ ARG REPO_DRIVER_DYNAMODB=https://github.com/pontusvision/pontus-dynamodb-janusgr
 ARG DYNAMODB_VERSION=v0.1.0
 RUN git clone --single-branch -b $DYNAMODB_VERSION      $REPO_DRIVER_DYNAMODB /tmp/work/src/dynamodb-janusgraph-storage-backend
 WORKDIR /tmp/work/src/dynamodb-janusgraph-storage-backend
-RUN mvn -DskipTests install
+RUN mvn -q -DskipTests install
 
 #ARG REPO_REDACTION=https://github.com/UKHomeOffice/pontus-redaction
 #ARG REDACTION_VERSION=v0.0.20
@@ -33,7 +33,7 @@ ARG REPO_GRAPH_WRAPPER=https://github.com/ukhomeoffice/tinkerpop-graphdb-wrapper
 ARG GRAPH_WRAPPER_VERSION=v0.1.0
 RUN rm -rf /tmp/work/src/graphdb && git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
 WORKDIR /tmp/work/src/graphdb
-RUN mvn install -U package
+RUN mvn -q install -U package
 
 FROM openjdk:8-jre-alpine
 
