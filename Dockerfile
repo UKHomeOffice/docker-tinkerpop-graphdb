@@ -10,18 +10,18 @@ RUN apk add -q --no-cache \
       zip 
 
 
-ARG REPO_JANUSGRAPH=https://github.com/pontusvision/pontus-janusgraph
-ARG JANUSGRAPH_VERSION=v0.0.20
-RUN mkdir -p /tmp/work/src && \
-    git clone --single-branch -b $JANUSGRAPH_VERSION    $REPO_JANUSGRAPH      /tmp/work/src/janusgraph
-WORKDIR /tmp/work/src/janusgraph
-RUN mvn -DskipTests install  
+#ARG REPO_JANUSGRAPH=https://github.com/pontusvision/pontus-janusgraph
+#ARG JANUSGRAPH_VERSION=v0.0.20
+#RUN mkdir -p /tmp/work/src && \
+#    git clone --single-branch -b $JANUSGRAPH_VERSION    $REPO_JANUSGRAPH      /tmp/work/src/janusgraph
+#WORKDIR /tmp/work/src/janusgraph
+#RUN mvn -DskipTests install
 
 ARG REPO_DRIVER_DYNAMODB=https://github.com/pontusvision/pontus-dynamodb-janusgraph-storage-backend
-ARG DYNAMODB_VERSION=v0.0.20
+ARG DYNAMODB_VERSION=v0.1.0
 RUN git clone --single-branch -b $DYNAMODB_VERSION      $REPO_DRIVER_DYNAMODB /tmp/work/src/dynamodb-janusgraph-storage-backend
 WORKDIR /tmp/work/src/dynamodb-janusgraph-storage-backend
-RUN mvn -DskipTests install 
+RUN mvn -q -DskipTests install
 
 #ARG REPO_REDACTION=https://github.com/UKHomeOffice/pontus-redaction
 #ARG REDACTION_VERSION=v0.0.20
@@ -29,11 +29,11 @@ RUN mvn -DskipTests install
 #WORKDIR /tmp/work/src/redaction
 #RUN mvn -DskipTests install 
 
-ARG REPO_GRAPH_WRAPPER=https://github.com/pontusvision/pontus-gdpr-graph
+ARG REPO_GRAPH_WRAPPER=https://github.com/ukhomeoffice/tinkerpop-graphdb-wrapper
 ARG GRAPH_WRAPPER_VERSION=v0.1.0
-RUN git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
+RUN rm -rf /tmp/work/src/graphdb && git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
 WORKDIR /tmp/work/src/graphdb
-RUN mvn -DskipTests install -U package 
+RUN mvn -q install -U package
 
 FROM openjdk:8-jre-alpine
 
@@ -48,6 +48,7 @@ RUN apk upgrade -q --no-cache \
 &&  apk add -q --no-cache \
       bash  \
       curl  \
+      nss \
 &&  mkdir -p /opt/graphdb/lib \
 &&  mkdir -p /opt/graphdb/bin \
 &&  adduser -S graphdb -u 31337 -h /opt/graphdb/ \
@@ -55,7 +56,7 @@ RUN apk upgrade -q --no-cache \
 
 USER 31337
 
-COPY --from=builder /tmp/work/src/graphdb/target/pontus-gdpr-graph-*.jar  /opt/graphdb/lib/graphdb-${VERSION}.jar
+COPY --from=builder /tmp/work/src/graphdb/target/tinkerpop-graphdb-wrapper-*.jar  /opt/graphdb/lib/graphdb-${VERSION}.jar
 
 COPY bin /opt/graphdb/bin
 COPY lib /opt/graphdb/lib

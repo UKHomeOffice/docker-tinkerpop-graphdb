@@ -45,7 +45,7 @@ bin=`dirname "$0"`
 bin=`cd "$bin">/dev/null; pwd`
 
 # This will set PVGDPR_HOME, etc.
-. "$bin"/pvgdpr-config.sh
+. "$bin"/graph-env.sh
 
 if [[ -z "$PVGDPR_HOME" ]]; then
   PVGDPR_HOME="$bin/.."
