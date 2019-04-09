@@ -248,6 +248,7 @@ if [ "${PVGDPR_NOEXEC}" != "" ]; then
 else
   exec "$JAVA" \
     -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${GRAPHDB_DEBUG_PORT:-5006} \
+    -Dcom.sun.management.jmxremote \
     -Dcom.pontusvision.gdpr.log.class=org.eclipse.jetty.util.log.StrErrLog \
     -Dorg.eclipse.jetty.LEVEL=INFO \
     -Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StrErrLog \
