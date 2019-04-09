@@ -30,7 +30,7 @@ RUN mvn -q -DskipTests install
 #RUN mvn -DskipTests install 
 
 ARG REPO_GRAPH_WRAPPER=https://github.com/ukhomeoffice/tinkerpop-graphdb-wrapper
-ARG GRAPH_WRAPPER_VERSION=v0.1.0
+ARG GRAPH_WRAPPER_VERSION=v0.1.1
 RUN rm -rf /tmp/work/src/graphdb && git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
 WORKDIR /tmp/work/src/graphdb
 RUN mvn -q install -U package
