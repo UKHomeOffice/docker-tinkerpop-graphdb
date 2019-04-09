@@ -10,7 +10,8 @@ pipeline:
 
   build_tag:
     image: ukhomeoffice/drone-docker
-    repo: quay.io/ukhomeofficedigital/docker-tinkerpop-graphdb
+    repo: quay.io/ukhomeofficedigital/docker-tinkerpop-graphdb:v0.1.0
+    pull: always
     secrets: [ docker_username, docker_password ]
     registry: quay.io
     mem_limit: 8000000000
