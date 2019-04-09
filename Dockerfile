@@ -58,8 +58,8 @@ USER 31337
 
 COPY --from=builder /tmp/work/src/graphdb/target/tinkerpop-graphdb-wrapper-*.jar  /opt/graphdb/lib/graphdb-${VERSION}.jar
 
-COPY lib /opt/graphdb/lib
 COPY bin /opt/graphdb/bin
+COPY lib /opt/graphdb/lib
 
 WORKDIR /opt/graphdb
 CMD ["/opt/graphdb/bin/run-graph.sh"]
