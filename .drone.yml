@@ -26,6 +26,7 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     registry: quay.io
     mem_limit: 8000000000
+    tag: ${DRONE_TAG}
     environment:
       - VERSION=${DRONE_TAG}
     when:
