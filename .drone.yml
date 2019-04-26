@@ -8,7 +8,7 @@ pipeline:
 #   when:
 #     event: push
 
-  build_tag_push:
+  build_push_dryrun:
     image: ukhomeoffice/drone-docker
     repo: quay.io/ukhomeofficedigital/docker-tinkerpop-graphdb
     secrets: [ docker_username, docker_password ]
