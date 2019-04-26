@@ -1,8 +1,8 @@
-PVGDPR_DISABLE_HADOOP_CLASSPATH_LOOKUP=true
-PVGDPR_CLASSPATH=/opt/graphdb/conf
-PVGDPR_OPTS=" \
+GRAPHDB_DISABLE_HADOOP_CLASSPATH_LOOKUP=true
+GRAPHDB_CLASSPATH=/opt/graphdb/conf
+GRAPHDB_OPTS=" \
   -DgremlinServerSandbox=/opt/graphdb/whitelist.yml \
   -Dbulk.elastic.retry_on_conflict=5 \
   -Dindex.elastic.use_params=true \
-  $PVGDPR_OPTS"
+  $GRAPHDB_OPTS"
 

@@ -1,4 +1,4 @@
-import com.pontusvision.utils.ElasticSearchHelper
+import uk.gov.homeoffice.utils.ElasticSearchHelper
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import groovy.transform.CompileDynamic
