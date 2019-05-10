@@ -20,7 +20,7 @@ FROM openjdk:8-jre-alpine
 
 ENV LISTEN_HOST="0.0.0.0" \
     LISTEN_PORT="8182"
-ARG VERSION="v0.1.1"
+ARG VERSION="v0.1.3"
 
 
 EXPOSE 8182
