@@ -11,7 +11,7 @@ RUN apk add -q --no-cache \
 
 
 ARG REPO_GRAPH_WRAPPER=https://github.com/ukhomeoffice/tinkerpop-graphdb-wrapper
-ARG GRAPH_WRAPPER_VERSION=v0.2.0
+ARG GRAPH_WRAPPER_VERSION=v0.3.0
 RUN rm -rf /tmp/work/src/graphdb && git clone --single-branch -b $GRAPH_WRAPPER_VERSION $REPO_GRAPH_WRAPPER   /tmp/work/src/graphdb
 WORKDIR /tmp/work/src/graphdb
 RUN mvn -q install -U package
@@ -20,7 +20,7 @@ FROM openjdk:8-jre-alpine
 
 ENV LISTEN_HOST="0.0.0.0" \
     LISTEN_PORT="8182"
-ARG VERSION="v0.1.3"
+ARG VERSION="v0.3.0"
 
 
 EXPOSE 8182
